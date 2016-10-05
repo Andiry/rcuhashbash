@@ -1,9 +1,8 @@
-ifneq ($(KERNELRELEASE),)
 obj-m += rcuhashbash.o
 obj-m += rcuhashbash-resize.o
-else
-# Build against the current kernel, or use the environment variable KERNELDIR.
-KERNELDIR ?= /lib/modules/$(shell uname -r)/build
-%:
-	$(MAKE) -C $(KERNELDIR) M=$(CURDIR) $@
-endif
+
+all:
+	make -C /lib/modules/$(shell uname -r)/build M=`pwd`
+
+clean:
+	make -C /lib/modules/$(shell uname -r)/build M=`pwd` clean
